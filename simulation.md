@@ -128,10 +128,10 @@ for (i in 1:4) {
 sim_results = 
   tibble(sample_size = c(30, 60, 120, 240)) %>% 
   mutate(
-    output_lists = map(.x = sample_size, ~rerun(1000, sim_regression(n = .x))),
-    estimate_dfs = map(output_lists, bind_rows)) %>% 
-  select(-output_lists) %>% 
-  unnest(estimate_dfs)
+    output_list = map(.x = sample_size, ~rerun(1000, sim_regression(n = .x))),
+    output_df = map(output_list, bind_rows))%>%
+  select(-output_list) %>% 
+  unnest(output_df)
 ```
 
 ``` r
